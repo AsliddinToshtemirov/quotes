@@ -12,23 +12,6 @@ class HomeView extends ConsumerStatefulWidget {
 
 class HomeViewState extends ConsumerState<HomeView> {
   @override
-  void initState() {
-    super.initState();
-
-    getRandomQuote();
-  }
-
-  getRandomQuote() {
-    Future.delayed(
-        const Duration(
-          seconds: 1,
-        ), () {
-      ref.refresh(getQuoteProvider);
-      setState(() {});
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final getQuote = ref.watch(getQuoteProvider);
     return Scaffold(
@@ -84,7 +67,7 @@ class HomeViewState extends ConsumerState<HomeView> {
             loading: () => const Center(child: LinearProgressIndicator())),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => getRandomQuote(),
+        onPressed: () => ref.refresh(getQuoteProvider),
         child: const Icon(Icons.refresh),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
